@@ -1,11 +1,25 @@
+import { useEffect, useRef, useState } from "react";
 import { LIFESTYLE_IMAGES } from "../data/lifestyle.js";
 
 export default function LifestyleSection() {
   const [primaryImage, secondaryImage] = LIFESTYLE_IMAGES;
   const hasLifestyleImages = Boolean(primaryImage);
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const element = sectionRef.current;
+    if (!element || !("IntersectionObserver" in window)) {
+      setIsVisible(true);
+      return undefined;
+    }
+    const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), { threshold: 0.1 });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section className="lifestyle" aria-labelledby="lifestyle-title">
+    <section className={`lifestyle ${isVisible ? "is-visible" : ""}`} aria-labelledby="lifestyle-title" ref={sectionRef}>
       <div className="lifestyle__inner container">
         <div className={`lifestyle__visual ${hasLifestyleImages ? "lifestyle__visual--with-images" : ""}`}>
           {hasLifestyleImages ? (

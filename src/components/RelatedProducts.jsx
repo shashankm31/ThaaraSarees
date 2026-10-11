@@ -1,3 +1,5 @@
+import ProductImage from "./ProductImage.jsx";
+
 export default function RelatedProducts({ products }) {
   return (
     <section className="related-products" aria-labelledby="related-title">
@@ -8,7 +10,7 @@ export default function RelatedProducts({ products }) {
       <div className="related-products__grid">
         {products.map((product) => (
           <a className="related-product" href={`/sarees/${product.id}`} key={product.id}>
-            <img src={product.image} alt={product.name} loading="lazy" />
+            <ProductImage src={product.image} alt={product.name} />
             <span>{product.name}</span>
           </a>
         ))}

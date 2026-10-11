@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { STORE_CONFIG } from "../config/store.js";
+import { getWhatsAppUrl } from "../utils/whatsapp.js";
 
 const navigationItems = [
   { label: "Home", href: "/#home" },
-  { label: "Sarees", href: "/#sarees" },
-  { label: "Collections", href: "/#collections" },
-  { label: "About", href: "/#about" },
+  { label: "Collection", href: "/#sarees" },
+  { label: "New Arrivals", href: "/#sarees" },
+  { label: "About Us", href: "/#about" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 function InstagramIcon() {
@@ -32,15 +34,15 @@ function MenuIcon({ open }) {
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const whatsappUrl = `https://wa.me/${STORE_CONFIG.whatsappNumber}`;
+  const whatsappUrl = getWhatsAppUrl();
 
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <header className="site-header">
+    <header className="site-header" data-menu-open={menuOpen || undefined}>
       <nav className="navbar container" aria-label="Main navigation">
         <a className="brand-logo" href="/#home" aria-label="Thaara Sarees home" onClick={closeMenu}>
-          <img src="/images/brand/thaara-logo.jpg" alt="Thaara Sarees" />
+          <img src="/images/brand/thaara-logo.png" alt="Thaara Sarees" />
         </a>
 
         <div className={`nav-menu ${menuOpen ? "is-open" : ""}`} id="main-menu">
